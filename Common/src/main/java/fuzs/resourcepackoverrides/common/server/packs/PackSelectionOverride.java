@@ -1,7 +1,7 @@
-package fuzs.resourcepackoverrides.server.packs;
+package fuzs.resourcepackoverrides.common.server.packs;
 
-import fuzs.resourcepackoverrides.config.ResourceOverridesManager;
-import fuzs.resourcepackoverrides.services.ClientAbstractions;
+import fuzs.resourcepackoverrides.common.config.ResourceOverridesManager;
+import fuzs.resourcepackoverrides.common.services.ClientAbstractions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackLocationInfo;
 import net.minecraft.server.packs.PackSelectionConfig;

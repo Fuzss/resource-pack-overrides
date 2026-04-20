@@ -1,7 +1,7 @@
 package fuzs.resourcepackoverrides.neoforge.services;
 
 import fuzs.resourcepackoverrides.neoforge.mixin.client.accessor.PackNeoForgeAccessor;
-import fuzs.resourcepackoverrides.services.ClientAbstractions;
+import fuzs.resourcepackoverrides.common.services.ClientAbstractions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackCompatibility;

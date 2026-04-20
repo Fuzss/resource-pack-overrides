@@ -1,4 +1,4 @@
-package fuzs.resourcepackoverrides.services;
+package fuzs.resourcepackoverrides.common.services;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.repository.Pack;

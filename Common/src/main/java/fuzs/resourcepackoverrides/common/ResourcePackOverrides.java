@@ -1,4 +1,4 @@
-package fuzs.resourcepackoverrides;
+package fuzs.resourcepackoverrides.common;
 
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package fuzs.resourcepackoverrides.config;
+package fuzs.resourcepackoverrides.common.config;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
@@ -8,8 +8,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
-import fuzs.resourcepackoverrides.ResourcePackOverrides;
-import fuzs.resourcepackoverrides.server.packs.PackSelectionOverride;
+import fuzs.resourcepackoverrides.common.ResourcePackOverrides;
+import fuzs.resourcepackoverrides.common.server.packs.PackSelectionOverride;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;

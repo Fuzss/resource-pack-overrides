@@ -1,6 +1,6 @@
 package fuzs.resourcepackoverrides.fabric.client;
 
-import fuzs.resourcepackoverrides.client.handler.PackActionsHandler;
+import fuzs.resourcepackoverrides.common.client.handler.PackActionsHandler;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;

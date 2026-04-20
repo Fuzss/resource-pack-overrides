@@ -1,6 +1,6 @@
 package fuzs.resourcepackoverrides.neoforge.data.client;
 
-import fuzs.resourcepackoverrides.client.handler.PackActionsHandler;
+import fuzs.resourcepackoverrides.common.client.handler.PackActionsHandler;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;

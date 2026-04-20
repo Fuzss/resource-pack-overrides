@@ -1,4 +1,4 @@
-package fuzs.resourcepackoverrides.services;
+package fuzs.resourcepackoverrides.common.services;
 
 import java.util.ServiceLoader;
 

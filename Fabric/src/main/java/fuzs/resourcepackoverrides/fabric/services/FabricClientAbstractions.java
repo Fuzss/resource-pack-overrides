@@ -1,7 +1,7 @@
 package fuzs.resourcepackoverrides.fabric.services;
 
 import com.google.common.base.Predicates;
-import fuzs.resourcepackoverrides.services.ClientAbstractions;
+import fuzs.resourcepackoverrides.common.services.ClientAbstractions;
 import net.fabricmc.fabric.impl.resource.pack.FabricPack;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;

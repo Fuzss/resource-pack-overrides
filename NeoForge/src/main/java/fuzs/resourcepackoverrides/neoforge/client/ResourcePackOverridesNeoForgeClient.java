@@ -1,7 +1,7 @@
 package fuzs.resourcepackoverrides.neoforge.client;
 
-import fuzs.resourcepackoverrides.ResourcePackOverrides;
-import fuzs.resourcepackoverrides.client.handler.PackActionsHandler;
+import fuzs.resourcepackoverrides.common.ResourcePackOverrides;
+import fuzs.resourcepackoverrides.common.client.handler.PackActionsHandler;
 import fuzs.resourcepackoverrides.neoforge.data.client.ModLanguageProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.packs.PackSelectionScreen;

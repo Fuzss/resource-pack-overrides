@@ -1,8 +1,8 @@
-package fuzs.resourcepackoverrides.mixin.client;
+package fuzs.resourcepackoverrides.common.mixin.client;
 
 import com.google.common.collect.Lists;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import fuzs.resourcepackoverrides.server.packs.PackSelectionOverride;
+import fuzs.resourcepackoverrides.common.server.packs.PackSelectionOverride;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackRepository;

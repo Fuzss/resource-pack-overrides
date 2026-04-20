@@ -1,6 +1,6 @@
 package fuzs.resourcepackoverrides.neoforge;
 
-import fuzs.resourcepackoverrides.ResourcePackOverrides;
+import fuzs.resourcepackoverrides.common.ResourcePackOverrides;
 import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.network.chat.Component;
 import net.neoforged.bus.api.IEventBus;

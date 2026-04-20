@@ -1,7 +1,7 @@
-package fuzs.resourcepackoverrides.client.handler;
+package fuzs.resourcepackoverrides.common.client.handler;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import fuzs.resourcepackoverrides.ResourcePackOverrides;
+import fuzs.resourcepackoverrides.common.ResourcePackOverrides;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.TutorialToast;

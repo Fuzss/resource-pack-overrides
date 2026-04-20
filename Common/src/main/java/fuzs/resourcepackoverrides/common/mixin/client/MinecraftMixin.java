@@ -1,6 +1,6 @@
-package fuzs.resourcepackoverrides.mixin.client;
+package fuzs.resourcepackoverrides.common.mixin.client;
 
-import fuzs.resourcepackoverrides.config.ResourceOverridesManager;
+import fuzs.resourcepackoverrides.common.config.ResourceOverridesManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.repository.PackRepository;
 import org.spongepowered.asm.mixin.Final;

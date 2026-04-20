@@ -1,9 +1,9 @@
 {
   "pack": {
     "description": "Ensures important resource packs stay always active and helps clean up the pack selection screen.",
-    "max_format": 94,
+    "max_format": 101,
     "min_format": [
-      94,
+      101,
       1
     ]
   }

@@ -1,9 +1,9 @@
-package fuzs.resourcepackoverrides.client.handler;
+package fuzs.resourcepackoverrides.common.client.handler;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.Window;
-import fuzs.resourcepackoverrides.config.ResourceOverridesManager;
-import fuzs.resourcepackoverrides.services.ClientAbstractions;
+import fuzs.resourcepackoverrides.common.config.ResourceOverridesManager;
+import fuzs.resourcepackoverrides.common.services.ClientAbstractions;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;

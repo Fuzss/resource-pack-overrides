@@ -1,9 +1,10 @@
 {
+    "minecraft": "26.1.2",
     "mod": {
         "id": "resourcepackoverrides",
         "group": "fuzs.resourcepackoverrides",
         "name": "Resource Pack Overrides",
-        "version": "21.11.1",
+        "version": "26.1.0",
         "authors": [
             "Fuzs"
         ],
@@ -21,13 +22,13 @@
     ],
     "links": [
         {
-            "name": "github",
-            "slug": "resourcepackoverrides"
-        },
-        {
             "name": "curseforge",
             "slug": "resource-pack-overrides",
             "id": "832644"
+        },
+        {
+            "name": "github",
+            "slug": "resource-pack-overrides"
         },
         {
             "name": "modrinth",

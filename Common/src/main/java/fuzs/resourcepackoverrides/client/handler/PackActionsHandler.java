@@ -8,7 +8,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
@@ -77,12 +77,12 @@ public class PackActionsHandler {
                     Int2ObjectOpenHashMap::new));
     private static boolean debugTooltips;
 
-    public static void onBeforeRenderScreen(Minecraft minecraft, PackSelectionScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public static void onBeforeRenderScreen(Minecraft minecraft, PackSelectionScreen screen, GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (debugTooltips && screen.model.repository == minecraft.getResourcePackRepository()) {
             getHoveredPackId(screen, mouseX, mouseY).map(Component::literal).ifPresent((Component component) -> {
                 ClientTooltipComponent clientTooltipComponent = ClientTooltipComponent.create(component.getVisualOrderText());
                 // Fabric Api adds a tooltip to resource packs with text going out of bounds, so we render our debug tooltip above, just as bundles do.
-                guiGraphics.renderTooltip(screen.getFont(),
+                guiGraphics.tooltip(screen.getFont(),
                         Collections.singletonList(clientTooltipComponent),
                         mouseX,
                         mouseY - (ClientAbstractions.INSTANCE.getModLoader() == ClientAbstractions.ModLoader.FABRIC ?

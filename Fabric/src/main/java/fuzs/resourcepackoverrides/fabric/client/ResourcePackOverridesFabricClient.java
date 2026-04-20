@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.packs.PackSelectionScreen;
 import net.minecraft.client.input.KeyEvent;
@@ -22,9 +22,9 @@ public class ResourcePackOverridesFabricClient implements ClientModInitializer {
     private static void registerEventHandlers() {
         ScreenEvents.AFTER_INIT.register((Minecraft client, Screen screen, int scaledWidth, int scaledHeight) -> {
             if (screen instanceof PackSelectionScreen) {
-                ScreenEvents.afterRender(screen)
-                        .register((Screen packSelectionScreen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) -> {
-                            PackActionsHandler.onBeforeRenderScreen(Screens.getClient(packSelectionScreen),
+                ScreenEvents.afterExtract(screen)
+                        .register((Screen packSelectionScreen, GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) -> {
+                            PackActionsHandler.onBeforeRenderScreen(Screens.getMinecraft(packSelectionScreen),
                                     (PackSelectionScreen) packSelectionScreen,
                                     guiGraphics,
                                     mouseX,
@@ -32,7 +32,7 @@ public class ResourcePackOverridesFabricClient implements ClientModInitializer {
                                     partialTick);
                         });
                 ScreenKeyboardEvents.afterKeyPress(screen).register((Screen packSelectionScreen, KeyEvent keyEvent) -> {
-                    PackActionsHandler.onAfterKeyPressed(Screens.getClient(packSelectionScreen),
+                    PackActionsHandler.onAfterKeyPressed(Screens.getMinecraft(packSelectionScreen),
                             (PackSelectionScreen) packSelectionScreen,
                             keyEvent);
                 });

@@ -70,12 +70,12 @@ public abstract class PackAction {
                         this.title,
                         this.description,
                         true);
-                minecraft.getToastManager().addToast(this.toast);
+                minecraft.gui.toastManager().addToast(this.toast);
             }
 
             if (this.pressTime < 20) {
                 this.toast.updateProgress(Mth.clamp(this.pressTime / 20.0F, 0.0F, 1.0F));
-            } else if (!this.wasExecuted && minecraft.screen instanceof PackSelectionScreen screen
+            } else if (!this.wasExecuted && minecraft.gui.screen() instanceof PackSelectionScreen screen
                     && screen.model.repository == minecraft.getResourcePackRepository()) {
                 if (this.execute(minecraft, screen)) {
                     this.finish(minecraft);
@@ -115,7 +115,7 @@ public abstract class PackAction {
                 this.title,
                 this.success,
                 true);
-        minecraft.getToastManager().addToast(this.successToast);
+        minecraft.gui.toastManager().addToast(this.successToast);
         this.successTicks = 80;
         this.successToast.updateProgress(1.0F);
     }

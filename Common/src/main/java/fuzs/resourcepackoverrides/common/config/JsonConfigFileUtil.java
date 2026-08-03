@@ -9,6 +9,12 @@ import fuzs.resourcepackoverrides.common.services.ClientAbstractions;
 import org.jspecify.annotations.Nullable;
 
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.CodingErrorAction;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -55,9 +61,9 @@ public class JsonConfigFileUtil {
      *
      * @param jsonName     name of the file to load
      * @param serializer   serializer creates a {@link JsonElement} and then calls {@link #saveToFile}
-     * @param deserializer deserializer feeds a {@link FileReader} to {@link #GSON} and handles the outcome itself
+     * @param deserializer deserializer feeds a {@link Reader} to {@link #GSON} and handles the outcome itself
      */
-    public static void getAndLoad(String jsonName, Consumer<File> serializer, Consumer<FileReader> deserializer) {
+    public static void getAndLoad(String jsonName, Consumer<File> serializer, Consumer<Reader> deserializer) {
         File jsonFile = getConfigPath(jsonName);
         load(jsonFile, serializer, deserializer);
     }
@@ -68,9 +74,9 @@ public class JsonConfigFileUtil {
      * @param jsonName     name of the file to load
      * @param modId        config directory name
      * @param serializer   serializer creates a {@link JsonElement} and then calls {@link #saveToFile}
-     * @param deserializer deserializer feeds a {@link FileReader} to {@link #GSON} and handles the outcome itself
+     * @param deserializer deserializer feeds a {@link Reader} to {@link #GSON} and handles the outcome itself
      */
-    public static void getAndLoad(String jsonName, String modId, Consumer<File> serializer, Consumer<FileReader> deserializer) {
+    public static void getAndLoad(String jsonName, String modId, Consumer<File> serializer, Consumer<Reader> deserializer) {
         File jsonFileInDir = getSpecialConfigPath(jsonName, modId);
         load(jsonFileInDir, serializer, deserializer);
     }
@@ -80,10 +86,10 @@ public class JsonConfigFileUtil {
      *
      * @param jsonName       name of the file to load
      * @param serializer     serializer creates a {@link JsonElement} and then calls {@link #saveToFile}
-     * @param deserializer   deserializer feeds a {@link FileReader} to {@link #GSON} and handles the outcome itself
+     * @param deserializer   deserializer feeds a {@link Reader} to {@link #GSON} and handles the outcome itself
      * @param prepareForLoad action to run before loading new files, usually cleaning up a collection
      */
-    public static void getAllAndLoad(String jsonName, Consumer<File> serializer, Consumer<FileReader> deserializer, Runnable prepareForLoad) {
+    public static void getAllAndLoad(String jsonName, Consumer<File> serializer, Consumer<Reader> deserializer, Runnable prepareForLoad) {
         File jsonDir = getConfigPath(jsonName);
         List<File> files = Lists.newArrayList();
         createAllIfAbsent(jsonDir, serializer, files);
@@ -103,12 +109,12 @@ public class JsonConfigFileUtil {
 
     /**
      * @param jsonDir        working directory
-     * @param deserializer   deserializer feeds a {@link FileReader} to {@link #GSON} and handles the outcome itself
+     * @param deserializer   deserializer feeds a {@link Reader} to {@link #GSON} and handles the outcome itself
      * @param prepareForLoad action to run before loading new files, usually cleaning up a collection
      * @param files          list of found files is empty when files had to be created, already has all required data
      *                       otherwise and no file search has to be run
      */
-    private static void loadAllFiles(File jsonDir, Consumer<FileReader> deserializer, Runnable prepareForLoad, List<File> files) {
+    private static void loadAllFiles(File jsonDir, Consumer<Reader> deserializer, Runnable prepareForLoad, List<File> files) {
         if (files.isEmpty()) getAllFilesRecursive(jsonDir, SEARCH_DEPTH, files, name -> name.endsWith(".json"));
         prepareForLoad.run();
         files.forEach(file -> loadFromFile(file, deserializer));
@@ -119,9 +125,9 @@ public class JsonConfigFileUtil {
      *
      * @param jsonFile     file to read from, or to write to when absent
      * @param serializer   serializer creates a {@link JsonElement} and then calls {@link #saveToFile}
-     * @param deserializer deserializer feeds a {@link FileReader} to {@link #GSON} and handles the outcome itself
+     * @param deserializer deserializer feeds a {@link Reader} to {@link #GSON} and handles the outcome itself
      */
-    private static void load(File jsonFile, Consumer<File> serializer, Consumer<FileReader> deserializer) {
+    private static void load(File jsonFile, Consumer<File> serializer, Consumer<Reader> deserializer) {
         createIfAbsent(jsonFile, serializer);
         loadFromFile(jsonFile, deserializer);
     }
@@ -170,7 +176,7 @@ public class JsonConfigFileUtil {
      */
     public static boolean saveToFile(File jsonFile, JsonElement jsonElement) {
         mkdirs(jsonFile.getParentFile());
-        try (FileWriter writer = new FileWriter(jsonFile)) {
+        try (Writer writer = Files.newBufferedWriter(jsonFile.toPath(), StandardCharsets.UTF_8)) {
             GSON.toJson(jsonElement, writer);
             return true;
         } catch (Exception e) {
@@ -180,17 +186,41 @@ public class JsonConfigFileUtil {
     }
 
     /**
-     * creates a {@link FileReader} for <code>file</code> and gives it to a <code>deserializer</code>
+     * reads <code>file</code> as UTF-8, falling back to the default charset for legacy files, and gives a
+     * {@link Reader} to a <code>deserializer</code>
      *
      * @param file         file to load
-     * @param deserializer deserializer feeds a {@link FileReader} to {@link #GSON} and handles the outcome itself
+     * @param deserializer deserializer feeds a {@link Reader} to {@link #GSON} and handles the outcome itself
      */
-    private static void loadFromFile(File file, Consumer<FileReader> deserializer) {
-        try (FileReader reader = new FileReader(file)) {
+    private static void loadFromFile(File file, Consumer<Reader> deserializer) {
+        try (Reader reader = new StringReader(readFile(file))) {
             deserializer.accept(reader);
         } catch (Exception e) {
             ResourcePackOverrides.LOGGER.error("Failed to read {} in config directory: {}", file.getName(), e);
         }
+    }
+
+    private static String readFile(File file) throws IOException {
+        byte[] bytes = Files.readAllBytes(file.toPath());
+        try {
+            return decode(bytes, StandardCharsets.UTF_8);
+        } catch (CharacterCodingException exception) {
+            Charset fallbackCharset = Charset.defaultCharset();
+            if (fallbackCharset.equals(StandardCharsets.UTF_8)) throw exception;
+            ResourcePackOverrides.LOGGER.warn("Config {} is not valid UTF-8, retrying with {}",
+                    file.getName(),
+                    fallbackCharset
+            );
+            return decode(bytes, fallbackCharset);
+        }
+    }
+
+    private static String decode(byte[] bytes, Charset charset) throws CharacterCodingException {
+        return charset.newDecoder()
+                .onMalformedInput(CodingErrorAction.REPORT)
+                .onUnmappableCharacter(CodingErrorAction.REPORT)
+                .decode(ByteBuffer.wrap(bytes))
+                .toString();
     }
 
     /**

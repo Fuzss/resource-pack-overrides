@@ -1,9 +1,16 @@
 {
   "branches": {
-    "1.21.11": "archived",
-    "1.21.1": "maintained",
     "1.20.1": "fixes",
+    "1.21.1": "maintained",
+    "1.21.11": "archived",
     "26.1.x": "maintained",
     "26.2.x": "primary"
+  },
+  "properties": {
+    "distributions.curseforge.id": "832644",
+    "distributions.curseforge.slug": "resource-pack-overrides",
+    "distributions.github.slug": "resource-pack-overrides",
+    "distributions.modrinth.id": "YsFycamt",
+    "distributions.modrinth.slug": "resource-pack-overrides"
   }
 }

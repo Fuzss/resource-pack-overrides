@@ -6,11 +6,17 @@
     "26.1.x": "maintained",
     "26.2.x": "primary"
   },
-  "properties": {
-    "distributions.curseforge.id": "832644",
-    "distributions.curseforge.slug": "resource-pack-overrides",
-    "distributions.github.slug": "resource-pack-overrides",
-    "distributions.modrinth.id": "YsFycamt",
-    "distributions.modrinth.slug": "resource-pack-overrides"
+  "distributions": {
+    "curseforge": {
+      "id": "832644",
+      "slug": "resource-pack-overrides"
+    },
+    "github": {
+      "slug": "resource-pack-overrides"
+    },
+    "modrinth": {
+      "id": "YsFycamt",
+      "slug": "resource-pack-overrides"
+    }
   }
 }

@@ -21,7 +21,7 @@ import org.apache.commons.compress.utils.Lists;
 import org.jspecify.annotations.Nullable;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.Reader;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -62,7 +62,7 @@ public class ResourceOverridesManager {
         }, ResourceOverridesManager::deserializeAllOverrides);
     }
 
-    private static void deserializeAllOverrides(FileReader reader) {
+    private static void deserializeAllOverrides(Reader reader) {
         JsonElement jsonElement = JsonConfigFileUtil.GSON.fromJson(reader, JsonElement.class);
         JsonObject jsonObject = GsonHelper.convertToJsonObject(jsonElement, "resource pack override");
         String schemaVersion = GsonHelper.getAsString(jsonObject, "schema_version", SCHEMA_VERSION);

@@ -34,7 +34,7 @@ public abstract class PackAction {
         this(keyCode,
                 Component.translatable(resourceLocation.toLanguageKey("pack_action", "title")),
                 Component.translatable(resourceLocation.toLanguageKey("pack_action", "description"),
-                        InputConstants.Type.KEYSYM.getOrCreate(keyCode)
+                        InputConstants.Type.KEYBOARD.getOrCreate(keyCode)
                                 .getDisplayName()
                                 .copy()
                                 .withStyle(ChatFormatting.BOLD)),

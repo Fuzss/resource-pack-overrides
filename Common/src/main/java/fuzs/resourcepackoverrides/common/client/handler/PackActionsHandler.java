@@ -88,7 +88,8 @@ public class PackActionsHandler {
                         mouseY - (ClientAbstractions.INSTANCE.getModLoader() == ClientAbstractions.ModLoader.FABRIC ?
                                 15 : 0),
                         DefaultTooltipPositioner.INSTANCE,
-                        null);
+                        null,
+                        false);
             });
         }
     }
